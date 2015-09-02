@@ -8,8 +8,19 @@ package woordenapplicatie.gui;
 
 
 
+import static java.lang.System.in;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
+import java.util.function.Consumer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -63,17 +74,47 @@ public class WoordenController implements Initializable {
     
     @FXML
     private void aantalAction(ActionEvent event) {
-         throw new UnsupportedOperationException("Not supported yet."); 
+         Collection henk = new ArrayList<>();
+         String text = taInput.getText().toLowerCase().replace("\r", " ").replace(",", "").replace("\n", " "); // Weghalen van comma's en enters
+         for (String s : text.split(" ")){
+             henk.add(s.trim()); // weghalen onnodige spaties en toevoegen aan de lijst
+         };
+         Set hashhenk = new HashSet<String>(henk); //omzetten naar HashSet om unieke resultaten te krijgen
+         String out = "Totaal aantal woorden: " + henk.size() + "\n Aantal verschillende woorden: " + hashhenk.size();
+         taOutput.setText(out);
     }
 
     @FXML
     private void sorteerAction(ActionEvent event) {
-         throw new UnsupportedOperationException("Not supported yet."); 
+        Collection henk = new HashSet<>(); 
+        String text = taInput.getText().toLowerCase().replace("\r", " ").replace(",", "").replace("\n", " "); // Weghalen van comma's en enters
+         for (String s : text.split(" ")){
+             henk.add(s.trim()); // weghalen onnodige spaties en toevoegen aan de lijst
+         };
+         Set hashhenk = new TreeSet<String>(Collections.reverseOrder()); //Aanmaken van een gesorteerde treeset die DESC sorteert
+         hashhenk.addAll(henk);// Het toevoegen van alle items.
+         taOutput.setText(hashhenk +"\n");
     }
 
     @FXML
     private void frequentieAction(ActionEvent event) {
-         throw new UnsupportedOperationException("Not supported yet."); 
+         Map henkmap = new HashMap();
+         String text = taInput.getText().toLowerCase().replace("\r", " ").replace(",", "").replace("\n", " "); // Weghalen van comma's en enters
+         for (String s : text.split(" ")){
+             if(henkmap.containsKey(s)){
+                 henkmap.replace(s, (int)henkmap.get(s) + 1);
+             }
+             else
+             {
+                 henkmap.put(s, 1);
+             }
+         };
+         String output = "";
+         for (Object s : henkmap.keySet())
+         {
+             output += s + ": " + henkmap.get(s) + "\n";
+         }
+         taOutput.setText(output);
     }
 
     @FXML
