@@ -96,6 +96,7 @@ public class WoordenController implements Initializable {
     @FXML
     private void frequentieAction(ActionEvent event) {
         Map henkmap = new HashMap();
+        Set henkset = new TreeSet();
         String text = taInput.getText().toLowerCase().replace("\r", " ").replace(",", "").replace("\n", " "); // Weghalen van comma's en enters
         for (String s : text.split(" ")) {
             if (henkmap.containsKey(s)) {
@@ -104,11 +105,10 @@ public class WoordenController implements Initializable {
                 henkmap.put(s, 1);
             }
         };
-        String output = "";
         for (Object s : henkmap.keySet()) {
-            output += s + ": " + henkmap.get(s) + "\n";
+            henkset.add(henkmap.get(s) + " , " + String.valueOf(s) + "\n");
         }
-        taOutput.setText(output);
+        taOutput.setText(henkset.toString());
     }
 
     @FXML
