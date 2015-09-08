@@ -75,9 +75,9 @@ public class WoordenController implements Initializable {
     private void aantalAction(ActionEvent event) {
         Collection henk = new ArrayList<>();
         String text = taInput.getText().toLowerCase().replace("\r", " ").replace(",", "").replace("\n", " "); // Weghalen van comma's en enters
-        for (String s : text.split(" ")) {
+        for (String s : text.split(" ")) { //Constant ( N )
             henk.add(s.trim()); // weghalen onnodige spaties en toevoegen aan de lijst
-        };
+        }
         Set hashhenk = new HashSet<String>(henk); //omzetten naar HashSet om unieke resultaten te krijgen
         String out = "Totaal aantal woorden: " + henk.size() + "\n Aantal verschillende woorden: " + hashhenk.size();
         taOutput.setText(out);
@@ -87,9 +87,9 @@ public class WoordenController implements Initializable {
     private void sorteerAction(ActionEvent event) {
         Collection henk = new HashSet<>();
         String text = taInput.getText().toLowerCase().replace("\r", " ").replace(",", "").replace("\n", " "); // Weghalen van comma's en enters
-        for (String s : text.split(" ")) {
+        for (String s : text.split(" ")) { //Constant ( N )
             henk.add(s.trim()); // weghalen onnodige spaties en toevoegen aan de lijst
-        };
+        }
         Set hashhenk = new TreeSet<String>(Collections.reverseOrder()); //Aanmaken van een gesorteerde treeset die DESC sorteert
         hashhenk.addAll(henk);// Het toevoegen van alle items.
         taOutput.setText(hashhenk + "\n");
@@ -97,22 +97,19 @@ public class WoordenController implements Initializable {
 
     @FXML
     private void frequentieAction(ActionEvent event) {
-        Map henkmap = new HashMap();
-        Map henklinkmap = new LinkedHashMap();
-        Collection henklist = new ArrayList<>();
+        Map henkmap = new HashMap(); //Unieke waarden voor frquentie analyse
+        Collection henklist = new ArrayList<>(); //Houd index en maakt het mogelijk om doorheen te lopen.
         String text = taInput.getText().toLowerCase().replace("\r", " ").replace(",", "").replace("\n", " "); // Weghalen van comma's en enters
-        for (String s : text.split(" ")) {
+        for (String s : text.split(" ")) { //Constant ( N )
             if (henkmap.containsKey(s)) {
-                henkmap.replace(s, (int) henkmap.get(s) + 1);
+                henkmap.replace(s, (int) henkmap.get(s) + 1); //Aanpassen van de waarde van een element
             } else {
-                henkmap.put(s, 1);
+                henkmap.put(s, 1); //Ininteren van een element
             }
-        };
-        henklinkmap.putAll(henkmap);
+        }
         
         String output = "";
-        henklinkmap.entrySet().stream().sorted(Map.Entry.comparingByValue()).forEach((entry) -> henklist.add(entry.toString()+"\n") ) ;
-        //taOutput.setText(output);
+        henkmap.entrySet().stream().sorted(Map.Entry.comparingByValue()).forEach(entry -> henklist.add(entry.toString()+"\n")); //Sorteren map op value
         taOutput.setText(henklist.toString());
     }
 
@@ -123,9 +120,9 @@ public class WoordenController implements Initializable {
         //aanmaken van een int voor de referentie.
         int i = 1;
         //lijn ophalen om te kijken waar de woorden staan.
-        for (String line : taInput.getText().split("\n")) {
+        for (String line : taInput.getText().split("\n")) { //Liniear ( N^2 )
             //woord voor woord gaan kijken of dat het bestaat in de treemap. zo niet voeg het toe aan de map, anders updaten van de value
-            for (String word : line.split(" ")) {
+            for (String word : line.split(" ")) { //Constant ( N )
                 word = word.replaceAll(",| ", "");
                 if (henkmap.containsKey(word)) {
                     henkmap.replace(word, henkmap.get(word) + " " + String.valueOf(i));
@@ -138,7 +135,7 @@ public class WoordenController implements Initializable {
         }
         //omzetten naar text voor de TextArea.
         String output = "";
-        for (Object s : henkmap.keySet()) {
+        for (Object s : henkmap.keySet()) { //Constant ( N )
             output += s + ": " + henkmap.get(s) + "\n";
         }
         taOutput.setText(output);
