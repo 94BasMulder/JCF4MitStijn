@@ -12,6 +12,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -96,7 +98,8 @@ public class WoordenController implements Initializable {
     @FXML
     private void frequentieAction(ActionEvent event) {
         Map henkmap = new HashMap();
-        Set henkset = new TreeSet();
+        Map henklinkmap = new LinkedHashMap();
+        Collection henklist = new ArrayList<>();
         String text = taInput.getText().toLowerCase().replace("\r", " ").replace(",", "").replace("\n", " "); // Weghalen van comma's en enters
         for (String s : text.split(" ")) {
             if (henkmap.containsKey(s)) {
@@ -105,10 +108,12 @@ public class WoordenController implements Initializable {
                 henkmap.put(s, 1);
             }
         };
-        for (Object s : henkmap.keySet()) {
-            henkset.add(henkmap.get(s) + " , " + String.valueOf(s) + "\n");
-        }
-        taOutput.setText(henkset.toString());
+        henklinkmap.putAll(henkmap);
+        
+        String output = "";
+        henklinkmap.entrySet().stream().sorted(Map.Entry.comparingByValue()).forEach((entry) -> henklist.add(entry.toString()+"\n") ) ;
+        //taOutput.setText(output);
+        taOutput.setText(henklist.toString());
     }
 
     @FXML
