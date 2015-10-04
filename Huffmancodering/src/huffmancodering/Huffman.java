@@ -6,16 +6,14 @@
 package huffmancodering;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.PriorityQueue;
 import java.util.Set;
-import sun.misc.Queue;
 
 /**
  *
@@ -77,7 +75,7 @@ public class Huffman {
         return sortedMap;
     }
 
-    private HuffmanNode getRoot(Map<Character,Integer> henkMap) {
+    private HuffmanNode getRoot(Map<Character, Integer> henkMap) {
         PriorityQueue<HuffmanNode> henkQ = new PriorityQueue<HuffmanNode>(henkMap.size(), new HuffManComparator());
         for (Entry<Character, Integer> entry : henkMap.entrySet()) {
             henkQ.add(new HuffmanNode(entry.getKey(), entry.getValue(), null, null));
@@ -110,4 +108,40 @@ public class Huffman {
         createNodeCode(node.right, map, s + '1');
     }
 
+    public String Codeer(String Message) {
+        Map map = this.countCharacters(Message);
+        Map sortedMap = this.sortMapOnFreq(map);
+        Map HuffHenk = this.createTree(sortedMap);
+
+        StringBuilder codedMessage = new StringBuilder();
+
+        for (int i = 0; i < Message.length(); i++) {
+            codedMessage.append(HuffHenk.get(Message.charAt(i)));
+        }
+
+        return codedMessage.toString();
+    }
+
+    public String Decodeer(String codedMessage, Map huffMap) {
+        Map revHuffMap = new HashMap<>();
+        Iterator<Map.Entry<String, String>> entries = huffMap.entrySet().iterator();
+        while (entries.hasNext()) {
+            Map.Entry<String, String> entry = entries.next();
+            revHuffMap.put(entry.getValue(), entry.getKey());
+        }
+
+        StringBuilder Message = new StringBuilder();
+        String current = "";
+        int positie = 0;
+        while (positie != codedMessage.length()) {
+            while (!revHuffMap.containsKey(current)) {
+                current += codedMessage.substring(positie, positie + 1);
+                positie++;
+            }
+            Message.append(revHuffMap.get(current));
+            current = "";
+        }
+
+        return Message.toString();
+    }
 }
