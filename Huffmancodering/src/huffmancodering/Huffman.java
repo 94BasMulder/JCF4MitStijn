@@ -48,14 +48,14 @@ public class Huffman {
         }
     }
 
-    public HashMap countCharacters(String characters) {
+    public Map countCharacters(String characters) {
         HashMap henkMap = new HashMap();
         int prevn = 0;
         String character;
-        for (int i = 1; i < characters.length(); i++) {
+        for (int i = 1; i <= characters.length(); i++) {
             character = characters.substring(prevn, i);
             if (henkMap.containsKey(character)) {
-                henkMap.replace(character, (int) henkMap.get(character) + 1);
+                henkMap.put(character, (int) henkMap.get(character) + 1);
             } else {
                 henkMap.put(character, 1);
             }
@@ -65,10 +65,10 @@ public class Huffman {
         return henkMap;
     }
 
-    public Map sortHashMapOnFrequency(HashMap henkMap) {
+    public Map sortMapOnFreq(Map henkMap) {
         ArrayList<String> henklist = new ArrayList<String>();
         henkMap.entrySet().stream().sorted(Map.Entry.comparingByValue()).forEach(entry -> henklist.add(entry.toString())); //Sorteren map op value
-  
+        Collections.sort(henklist);
         Map sortedMap = new HashMap();
         for (String item : henklist) {
             String[] items = item.split("=");
@@ -77,7 +77,7 @@ public class Huffman {
         return sortedMap;
     }
 
-    private HuffmanNode getRoot(HashMap<Character,Integer> henkMap) {
+    private HuffmanNode getRoot(Map<Character,Integer> henkMap) {
         PriorityQueue<HuffmanNode> henkQ = new PriorityQueue<HuffmanNode>(henkMap.size(), new HuffManComparator());
         for (Entry<Character, Integer> entry : henkMap.entrySet()) {
             henkQ.add(new HuffmanNode(entry.getKey(), entry.getValue(), null, null));
@@ -91,7 +91,7 @@ public class Huffman {
         return henkQ.remove();
     }
 
-    public Map<Character, String> createTree(HashMap henkMap) {
+    public Map<Character, String> createTree(Map henkMap) {
         return generateCode(henkMap.keySet(), getRoot(henkMap));
     }
 

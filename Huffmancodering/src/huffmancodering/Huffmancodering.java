@@ -22,18 +22,14 @@ public class Huffmancodering {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        /* String output = "";
-         while(!output.equals("Exit"))
-         {
-            
-        
-         }
-         */
         Huffman hf = new Huffman();
-       System.out.print(hf.createTree((HashMap) hf.sortHashMapOnFrequency(hf.countCharacters("AaBadeasFesAHASDgassgasfhsdUJJdgjuryghdfdeet"))));
+        
+        
+        Map map = hf.countCharacters("Banaan");
+        System.out.println(map);
+        Map sortedMap = hf.sortMapOnFreq(map);
+        System.out.println(sortedMap);
+        System.out.println(hf.createTree(sortedMap));
     }
 
-    
-    
 }
