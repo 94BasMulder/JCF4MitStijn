@@ -24,12 +24,16 @@ public class Huffmancodering {
     public static void main(String[] args) {
         Huffman hf = new Huffman();
         
+        String Message = "Bananen";
         
-        Map map = hf.countCharacters("Banaan");
+        Map map = hf.countCharacters(Message);
         System.out.println(map);
         Map sortedMap = hf.sortMapOnFreq(map);
         System.out.println(sortedMap);
         System.out.println(hf.createTree(sortedMap));
+        
+        System.out.println("Coded: " + hf.Codeer(Message));
+        System.out.println("Decoded: " + hf.Decodeer(hf.Codeer(Message),hf.createTree(sortedMap)));
     }
 
 }
