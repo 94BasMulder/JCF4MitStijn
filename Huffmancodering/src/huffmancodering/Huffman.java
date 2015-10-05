@@ -99,7 +99,7 @@ public class Huffman {
         return henkMap;
     }
 
-    private static void createNodeCode(HuffmanNode node, Map<Character, String> map, String s) {
+    private void createNodeCode(HuffmanNode node, Map<Character, String> map, String s) {
         if (node.left == null && node.right == null) {
             map.put(node.ch, s);
             return;
