@@ -95,6 +95,11 @@ public class Huffman {
 
     private Map<Character, String> generateCode(Set keySet, HuffmanNode root) {
         Map<Character, String> henkMap = new HashMap<Character, String>();
+        if(keySet.size() <= 1)
+        {            
+            createNodeCode(root, henkMap, "0");
+            return henkMap;
+        }
         createNodeCode(root, henkMap, "");
         return henkMap;
     }
