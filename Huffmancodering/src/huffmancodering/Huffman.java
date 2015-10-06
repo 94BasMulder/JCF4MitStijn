@@ -163,7 +163,7 @@ public class Huffman {
         Map HuffHenk = this.createTree(sortedMap);
 
         StringBuilder codedMessage = new StringBuilder();
-
+        //N
         for (int i = 0; i < Message.length(); i++) {
             codedMessage.append(HuffHenk.get(Message.charAt(i)));
         }
@@ -180,6 +180,7 @@ public class Huffman {
     public String Decodeer(String codedMessage, Map huffMap) {
         Map revHuffMap = new HashMap<>();
         Iterator<Map.Entry<String, String>> entries = huffMap.entrySet().iterator();
+        //Log(N)
         while (entries.hasNext()) {
             Map.Entry<String, String> entry = entries.next();
             revHuffMap.put(entry.getValue(), entry.getKey());
@@ -188,6 +189,7 @@ public class Huffman {
         StringBuilder Message = new StringBuilder();
         String current = "";
         int positie = 0;
+        //log(log(N))
         while (positie != codedMessage.length()) {
             while (!revHuffMap.containsKey(current)) {
                 current += codedMessage.substring(positie, positie + 1);
