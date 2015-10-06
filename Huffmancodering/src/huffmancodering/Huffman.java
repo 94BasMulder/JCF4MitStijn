@@ -180,7 +180,7 @@ public class Huffman {
     public String Decodeer(String codedMessage, Map huffMap) {
         Map revHuffMap = new HashMap<>();
         Iterator<Map.Entry<String, String>> entries = huffMap.entrySet().iterator();
-        //Log(N)
+        //O(n)
         while (entries.hasNext()) {
             Map.Entry<String, String> entry = entries.next();
             revHuffMap.put(entry.getValue(), entry.getKey());
@@ -189,7 +189,7 @@ public class Huffman {
         StringBuilder Message = new StringBuilder();
         String current = "";
         int positie = 0;
-        //log(log(N))
+        //O(O(n))
         while (positie != codedMessage.length()) {
             while (!revHuffMap.containsKey(current)) {
                 current += codedMessage.substring(positie, positie + 1);
