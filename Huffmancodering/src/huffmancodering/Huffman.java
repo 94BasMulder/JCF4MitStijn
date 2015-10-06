@@ -21,9 +21,13 @@ import java.util.Set;
  */
 public class Huffman {
 
+    //huffmanboom
     public HashMap<HuffmanNode, Integer> huffmanMap = new HashMap<HuffmanNode, Integer>();
 
-    private static class HuffmanNode {
+    /**
+     * class om nodes van de huffmanboom op te slaan
+     */
+    private class HuffmanNode {
 
         char ch;
         int frequency;
@@ -38,7 +42,10 @@ public class Huffman {
         }
     }
 
-    private static class HuffManComparator implements Comparator<HuffmanNode> {
+    /**
+     * class om de huffmannodes te vergelijken
+     */
+    private class HuffManComparator implements Comparator<HuffmanNode> {
 
         @Override
         public int compare(HuffmanNode node1, HuffmanNode node2) {
@@ -46,10 +53,16 @@ public class Huffman {
         }
     }
 
+    /**
+     * Telt hoevaak een karakter voorkomt in de string
+     * @param characters string die moet worden gelezen
+     * @return de karakters en het aantal
+     */
     public Map countCharacters(String characters) {
         HashMap henkMap = new HashMap();
         int prevn = 0;
         String character;
+        //N
         for (int i = 1; i <= characters.length(); i++) {
             character = characters.substring(prevn, i);
             if (henkMap.containsKey(character)) {
@@ -63,11 +76,18 @@ public class Huffman {
         return henkMap;
     }
 
+    /**
+     * Sorteert de map op frequency
+     * @param henkMap map die moet worden gesorteerd
+     * @return gesorteerde map
+     */
     public Map sortMapOnFreq(Map henkMap) {
         ArrayList<String> henklist = new ArrayList<String>();
+        //N
         henkMap.entrySet().stream().sorted(Map.Entry.comparingByValue()).forEach(entry -> henklist.add(entry.toString())); //Sorteren map op value
         Collections.sort(henklist);
         Map sortedMap = new HashMap();
+        //N
         for (String item : henklist) {
             String[] items = item.split("=");
             sortedMap.put(item.charAt(0), Integer.valueOf(items[1]));
@@ -77,9 +97,11 @@ public class Huffman {
 
     private HuffmanNode getRoot(Map<Character, Integer> henkMap) {
         PriorityQueue<HuffmanNode> henkQ = new PriorityQueue<HuffmanNode>(henkMap.size(), new HuffManComparator());
+        //N
         for (Entry<Character, Integer> entry : henkMap.entrySet()) {
             henkQ.add(new HuffmanNode(entry.getKey(), entry.getValue(), null, null));
         }
+        //log(N)
         while (henkQ.size() > 1) {
             HuffmanNode hn1 = (HuffmanNode) henkQ.remove();
             HuffmanNode hn2 = (HuffmanNode) henkQ.remove();
@@ -89,10 +111,21 @@ public class Huffman {
         return henkQ.remove();
     }
 
+    /**
+     * createert de code op basis van de frequentie
+     * @param henkMap map met frequenties
+     * @return gegenereerde code
+     */
     public Map<Character, String> createTree(Map henkMap) {
         return generateCode(henkMap.keySet(), getRoot(henkMap));
     }
 
+    /**
+     * maakt de code van huffman
+     * @param keySet keys van huffman
+     * @param root begin punt
+     * @return code
+     */
     private Map<Character, String> generateCode(Set keySet, HuffmanNode root) {
         Map<Character, String> henkMap = new HashMap<Character, String>();
         if(keySet.size() <= 1)
@@ -104,6 +137,12 @@ public class Huffman {
         return henkMap;
     }
 
+    /**
+     * voegt een node toe aan de map
+     * @param node map om toe te voegen
+     * @param map map waaraan het toegevoegt moet worden
+     * @param s code om toetevoegen
+     */
     private void createNodeCode(HuffmanNode node, Map<Character, String> map, String s) {
         if (node.left == null && node.right == null) {
             map.put(node.ch, s);
@@ -113,6 +152,11 @@ public class Huffman {
         createNodeCode(node.right, map, s + '1');
     }
 
+    /**
+     * vervormt de string naar de code
+     * @param Message string die gecodeert moet worden
+     * @return gecodeerde string
+     */
     public String Codeer(String Message) {
         Map map = this.countCharacters(Message);
         Map sortedMap = this.sortMapOnFreq(map);
@@ -127,6 +171,12 @@ public class Huffman {
         return codedMessage.toString();
     }
 
+    /**
+     * decodeert het bericht
+     * @param codedMessage bericht dat moet worden omgegooit
+     * @param huffMap codes om het weer tot karakters om te zetten
+     * @return het bericht
+     */
     public String Decodeer(String codedMessage, Map huffMap) {
         Map revHuffMap = new HashMap<>();
         Iterator<Map.Entry<String, String>> entries = huffMap.entrySet().iterator();
