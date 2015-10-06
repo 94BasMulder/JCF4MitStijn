@@ -24,7 +24,7 @@ public class Huffmancodering {
     public static void main(String[] args) {
         Huffman hf = new Huffman();
         
-        String Message = "a";
+        String Message = "test";
         
         Map map = hf.countCharacters(Message);
         System.out.println(map);

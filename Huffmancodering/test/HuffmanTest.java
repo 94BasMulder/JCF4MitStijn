@@ -178,4 +178,31 @@ public class HuffmanTest {
         assertEquals("map2 niet gelijk", hfmap2, hfResult2);
         assertEquals("map3 niet gelijk", hfmap1, hfResult1);
     }
+    
+    @Test
+    public void testCodeer()
+    {
+        String code1 = hf.Codeer("Hallo");
+        String code2 = hf.Codeer("Banaan");
+        String code3 = hf.Codeer("Lorem Ipsum Dolar ETC");
+        
+        assertEquals("text1 niet gelijk", code1, "1011000111");
+        assertEquals("text2 niet gelijk", code2,"100110011" );
+        assertEquals("text3 niet gelijk", code3,"11101010111100100001010011011011010110110001011100101010001100011111011001111000111" );
+    }
+    
+    @Test
+    public void testDecodeer()
+    {
+    
+        hfmap1 = hf.sortMapOnFreq(hfmap1);
+        hfmap2 = hf.sortMapOnFreq(hfmap2);
+        hfmap3 = hf.sortMapOnFreq(hfmap3);
+        hfmap1 = hf.createTree(hfmap1);
+        hfmap2 = hf.createTree(hfmap2);
+        hfmap3 = hf.createTree(hfmap3);
+        assertEquals("text1 niet gelijk", hf.Decodeer("1011000111", hfmap1),"Hallo" );
+        assertEquals("text2 niet gelijk", hf.Decodeer("100110011", hfmap2),"Banaan" );
+        assertEquals("text3 niet gelijk", hf.Decodeer("11101010111100100001010011011011010110110001011100101010001100011111011001111000111", hfmap3),"Lorem Ipsum Dolar ETC" );
+    }
 }
