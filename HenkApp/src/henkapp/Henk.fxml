@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="960.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="henkapp.HenkController">
+   <children>
+      <TableView fx:id="tvTable" layoutX="523.0" layoutY="46.0" prefHeight="284.0" prefWidth="336.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Naam" />
+          <TableColumn prefWidth="75.0" text="Telefoon" />
+            <TableColumn prefWidth="75.0" text="Plaats" />
+        </columns>
+      </TableView>
+      <TreeView fx:id="tvTree" layoutX="40.0" layoutY="28.0" prefHeight="200.0" prefWidth="200.0" />
+      <Label layoutX="73.0" layoutY="326.0" text="Naam" />
+      <TextField fx:id="txtNaam" layoutX="66.0" layoutY="354.0" />
+      <TextField fx:id="txtPlaats" layoutX="66.0" layoutY="417.0" />
+      <Label layoutX="73.0" layoutY="389.0" text="Plaats" />
+      <TextField fx:id="txtTelefoonnummer" layoutX="59.0" layoutY="483.0" />
+      <Label layoutX="66.0" layoutY="455.0" text="Telefoonnnummer" />
+      <Button fx:id="btnAdd" layoutX="61.0" layoutY="522.0" mnemonicParsing="false" onAction="#btnAddClick" text="Add" />
+   </children>
+</AnchorPane>
