@@ -49,4 +49,12 @@ public class Persoon {
     public void setTelefoon(String telefoon) {
         this.telefoon = telefoon;
     }
+
+    boolean contentEquals(Persoon p) {
+        if(this.naam.equals(p.getNaam()))
+           if(this.plaats.equals(p.getPlaats()))
+                if(this.telefoon.equals(p.getTelefoon()))
+                    return true;
+        return false;
+    }
 }
