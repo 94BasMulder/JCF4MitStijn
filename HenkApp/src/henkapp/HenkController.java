@@ -50,11 +50,11 @@ public class HenkController implements Initializable {
         // TODO
         personen = observableArrayList();
         naamCol = new TableColumn("Naam");
-        naamCol.setMinWidth(tvTable.getWidth()/3);
+        naamCol.setMinWidth(111.1);
         plaatsCol = new TableColumn("Plaats");
-        plaatsCol.setMinWidth(tvTable.getWidth()/3);
+        plaatsCol.setMinWidth(111.1);
         telefoonCol = new TableColumn("Telefoon");
-        telefoonCol.setMinWidth(tvTable.getWidth()/3);
+        telefoonCol.setMinWidth(111.1);
         
         tvTable.getColumns().addAll(naamCol,plaatsCol,telefoonCol);
         naamCol.setCellValueFactory(new PropertyValueFactory<Persoon,String>("naam"));
