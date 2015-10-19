@@ -68,10 +68,5 @@ public class HenkController implements Initializable {
     public void btnAddClick(Event e)
     {
         personen.add(new Persoon(txtNaam.getText(), txtPlaats.getText(), txtTelefoonnummer.getText()));
-        update();
-    }
-    
-    private void update(){
-        tvTable.setItems(personen);
     }
 }
