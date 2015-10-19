@@ -56,10 +56,13 @@ public class HenkController implements Initializable {
         telefoonCol = new TableColumn("Telefoon");
         telefoonCol.setMinWidth(111.1);
         
-        tvTable.getColumns().addAll(naamCol,plaatsCol,telefoonCol);
         naamCol.setCellValueFactory(new PropertyValueFactory<Persoon,String>("naam"));
         plaatsCol.setCellValueFactory(new PropertyValueFactory<Persoon,String>("plaats"));
         telefoonCol.setCellValueFactory(new PropertyValueFactory<Persoon,String>("telefoon"));
+        
+        
+        tvTable.setItems(personen);
+        tvTable.getColumns().addAll(naamCol,plaatsCol,telefoonCol);
     }    
     
     public void btnAddClick(Event e)
@@ -69,6 +72,6 @@ public class HenkController implements Initializable {
     }
     
     private void update(){
-        
+        tvTable.setItems(personen);
     }
 }
