@@ -11,9 +11,6 @@
    <children>
       <TableView fx:id="tvTable" layoutX="523.0" layoutY="46.0" prefHeight="284.0" prefWidth="336.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Naam" />
-          <TableColumn prefWidth="75.0" text="Telefoon" />
-            <TableColumn prefWidth="75.0" text="Plaats" />
         </columns>
       </TableView>
       <TreeView fx:id="tvTree" layoutX="40.0" layoutY="28.0" prefHeight="200.0" prefWidth="200.0" />
