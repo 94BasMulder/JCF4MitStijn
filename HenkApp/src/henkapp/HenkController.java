@@ -37,7 +37,7 @@ import javafx.util.Callback;
  * @author Bas
  */
 public class HenkController implements Initializable {
-    
+
     @FXML
     Button btnAdd;
     @FXML
@@ -50,7 +50,7 @@ public class HenkController implements Initializable {
     TextField txtPlaats;
     @FXML
     TextField txtTelefoonnummer;
-    
+
     public ObservableList<Persoon> personen;
     public ObservableList<Persoon> mensen;
     private TableColumn naamCol;
@@ -72,30 +72,31 @@ public class HenkController implements Initializable {
         mensen.add(new Persoon("Joel", "Porvoo", "0416"));
         mensen.add(new Persoon("Meyke", "Kuick", "0416"));
         mensen.add(new Persoon("Harry", "Kuick", "0416"));
-        
+
         createTreeView();
-        
-        
         tvTree.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<Persoon>>() {
             @Override
             public void changed(ObservableValue<? extends TreeItem<Persoon>> observable, TreeItem<Persoon> oldValue, TreeItem<Persoon> newValue) {
-                personen.clear();
-                if(newValue.getValue().getNaam().equals("Mensen"))
-                    personen.addAll(mensen);
-                else if(newValue.getChildren().size() != 0)
-                {
-                    for (Persoon p : mensen)
-                        if(p.getPlaats().equals(newValue.getValue().getNaam()))
-                            personen.add(p);
+                try {
+                    personen.clear();
+                    if (newValue.getValue().getNaam().equals("Mensen")) {
+                        personen.addAll(mensen);
+                    } else if (newValue.getChildren().size() != 0) {
+                        for (Persoon p : mensen) {
+                            if (p.getPlaats().equals(newValue.getValue().getNaam())) {
+                                personen.add(p);
+                            }
+                        }
+                    } else {
+                        personen.add(newValue.getValue());
+                        System.out.print(newValue.getValue().getNaam());
+                    }
+                } catch (Exception e) {
                 }
-                else            {    
-                    personen.add(newValue.getValue());
-                    System.out.print(newValue.getValue().getNaam());}
-            }});
-        
-        
+            }
+        });
         tvTable.setEditable(true);
-        
+
         personen = observableArrayList();
         naamCol = new TableColumn("Naam");
         naamCol.setMinWidth(111.1);
@@ -103,11 +104,11 @@ public class HenkController implements Initializable {
         plaatsCol.setMinWidth(111.1);
         telefoonCol = new TableColumn("Telefoon");
         telefoonCol.setMinWidth(111.1);
-        
+
         naamCol.setCellValueFactory(new PropertyValueFactory<Persoon, String>("naam"));
         plaatsCol.setCellValueFactory(new PropertyValueFactory<Persoon, String>("plaats"));
         telefoonCol.setCellValueFactory(new PropertyValueFactory<Persoon, String>("telefoon"));
-        
+
         naamCol.setCellFactory(TextFieldTableCell.forTableColumn());
         naamCol.setOnEditCommit(
                 new EventHandler<CellEditEvent<Persoon, String>>() {
@@ -115,10 +116,11 @@ public class HenkController implements Initializable {
                     public void handle(CellEditEvent<Persoon, String> t) {
                         ((Persoon) t.getTableView().getItems().get(
                                 t.getTablePosition().getRow())).setNaam(t.getNewValue());
+                        createTreeView();
                     }
                 }
         );
-        
+
         plaatsCol.setCellFactory(TextFieldTableCell.forTableColumn());
         plaatsCol.setOnEditCommit(
                 new EventHandler<CellEditEvent<Persoon, String>>() {
@@ -126,10 +128,11 @@ public class HenkController implements Initializable {
                     public void handle(CellEditEvent<Persoon, String> t) {
                         ((Persoon) t.getTableView().getItems().get(
                                 t.getTablePosition().getRow())).setPlaats(t.getNewValue());
+                        createTreeView();
                     }
                 }
         );
-        
+
         telefoonCol.setCellFactory(TextFieldTableCell.forTableColumn());
         telefoonCol.setOnEditCommit(
                 new EventHandler<CellEditEvent<Persoon, String>>() {
@@ -137,22 +140,24 @@ public class HenkController implements Initializable {
                     public void handle(CellEditEvent<Persoon, String> t) {
                         ((Persoon) t.getTableView().getItems().get(
                                 t.getTablePosition().getRow())).setTelefoon(t.getNewValue());
+                        createTreeView();
                     }
                 }
         );
-        
+
         tvTable.setItems(personen);
         tvTable.getColumns().addAll(naamCol, plaatsCol, telefoonCol);
-        
+
     }
-    
+
     public void btnAddClick(Event e) {
         personen.add(new Persoon(txtNaam.getText(), txtPlaats.getText(), txtTelefoonnummer.getText()));
         mensen.add(new Persoon(txtNaam.getText(), txtPlaats.getText(), txtTelefoonnummer.getText()));
         createTreeView();
     }
-    
+
     private void createTreeView() {
+
         root = new TreeItem<Persoon>(new Persoon("Mensen", "", ""));
         ArrayList<Persoon> plaatsen = new ArrayList<Persoon>();
         boolean found = false;
