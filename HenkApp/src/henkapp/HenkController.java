@@ -82,14 +82,15 @@ public class HenkController implements Initializable {
                 personen.clear();
                 if(newValue.getValue().getNaam().equals("Mensen"))
                     personen.addAll(mensen);
-                else if(newValue.getChildren()!= null)
+                else if(newValue.getChildren().size() != 0)
                 {
                     for (Persoon p : mensen)
                         if(p.getPlaats().equals(newValue.getValue().getNaam()))
                             personen.add(p);
                 }
-                else                
-                    personen.add(new Persoon(newValue.getValue().getNaam(),newValue.getValue().getPlaats(),newValue.getValue().getTelefoon()));
+                else            {    
+                    personen.add(newValue.getValue());
+                    System.out.print(newValue.getValue().getNaam());}
             }});
         
         
