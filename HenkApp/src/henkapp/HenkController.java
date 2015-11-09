@@ -73,7 +73,7 @@ public class HenkController implements Initializable {
     //    5000 duurt 0.1 seconden om te genereren en 0.2 seconden om de treeview te maken/vullen.
     //    1000 duurt 0.0 seconden om te genereren en 0.0 seconden om de treeview te maken/vullen.
     
-    public Set<Persoon> personen;
+    public ObservableList<Persoon> personen;
     public Set<Persoon> mensen;
     private TableColumn naamCol;
     private TableColumn plaatsCol;
@@ -88,8 +88,9 @@ public class HenkController implements Initializable {
         // TODO
         
         mensen = new TreeSet();
+        personen = observableArrayList();
+        ObservableSet obvSet = FXCollections.observableSet(mensen);
         
-        ObservableSet<Persoon> obvSet = null;
         ///*
         mensen.add(new Persoon("Arie", "Amsterdam", "020"));
         mensen.add(new Persoon("Arie", "Amsterdam", "020"));
@@ -114,10 +115,6 @@ public class HenkController implements Initializable {
         
         System.out.println("Tijd genereren:" + ((endTime - startTime)*0.000000001));
         //*/
-        
-        
-        Bindings.bindContent(mensen, obvSet);
-        
         
         createTreeView();
         tvTree.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<Persoon>>() {
@@ -190,7 +187,8 @@ public class HenkController implements Initializable {
         );
         telefoonCol.setComparator((tel1, tel2) -> tel1.toString().compareTo(tel2.toString()));
         
-        //tvTable.setItems(personen);
+        
+        tvTable.setItems(personen);
         tvTable.getColumns().addAll(naamCol, plaatsCol, telefoonCol);
     }
 
