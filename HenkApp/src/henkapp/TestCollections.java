@@ -7,6 +7,7 @@ package henkapp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -38,7 +39,7 @@ public class TestCollections {
             mensenArray.add(new Persoon(UUID.randomUUID().toString(), plaatsen.get((int) (Math.random() * aantal_personen / 10)), UUID.randomUUID().toString()));
         }
 
-        Set TS = new TreeSet();
+        Set<Persoon> TS = new TreeSet();
         Map TM = new TreeMap();
         Map HM = new HashMap();
 
@@ -49,12 +50,19 @@ public class TestCollections {
         }
         System.out.println("HashMap:");
         for (int i = 0; i < HM.size(); i++) {
-            System.out.println(i+1 + ": " + HM.get(mensenArray.get(i)));
+            System.out.println(i + 1 + ": " + HM.get(mensenArray.get(i)));
         }
         System.out.println("");
         System.out.println("TreeMap:");
         for (int i = 0; i < TM.size(); i++) {
-            System.out.println(i+1 + ": " + TM.get(mensenArray.get(i)));
+            System.out.println(i + 1 + ": " + TM.get(mensenArray.get(i)));
+        }
+        System.out.println("");
+        System.out.println("TreeSet:");
+        int i = 0;
+        for (Persoon p : TS) {
+            System.out.println(i + 1 + ": " + p);
+            i++;
         }
     }
 }
